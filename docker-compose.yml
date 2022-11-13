@@ -1,0 +1,28 @@
+version: "3"
+services:
+  app1:
+    container_name: app1
+    image: myubuntu:2.0
+    build: .
+    depends_on:
+      - database
+
+  app2:
+    container_name: app2
+    image: hello-world
+    depends_on:
+      - database
+
+  database:
+    container_name: db
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: example
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:      
